@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -25,7 +26,10 @@ function TopNav() {
                 Product
               </Nav.Link>
               <Nav.Link as={Link} to="/cart" className="">
-                Cart - {cartList.length}
+                Cart -{" "}
+                <Badge bg="dark" pill>
+                  {cartList.length}
+                </Badge>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

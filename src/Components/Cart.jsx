@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { removeFromCart } from "../Store/cartSlice";
 
 function Cart() {
@@ -16,29 +17,40 @@ function Cart() {
       <h3 className=" text-primary  mb-3  ">Cart Detail</h3>
 
       <div className="col-sm-8">
-        d
-        {cartList.map((item) => (
-          <div key={item.id}>
-            <Card className="flex   ">
-              <img src={item.thumbnail} alt="" className="w-25 " />
-              <Card.Body>
-                <div>
-                  <Card.Title> {item.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted text-capitalize ">
-                    {item.category}
-                  </Card.Subtitle>
-                  <Card.Text>${item.price}</Card.Text>
-                  <button
-                    onClick={() => removeFromCartHandler(item)}
-                    className="btn btn-outline-danger  "
-                  >
-                    Remove from cart
-                  </button>
-                </div>
-              </Card.Body>
+        {cartList.length == 0 ? (
+          <h4 className="mt-3 text-seconday ">
+            Cart is empty, Please add products from{" "}
+            <Link className="btn btn-outline-primary " to="/products">
+              Products{" "}
+            </Link>
+          </h4>
+        ) : (
+          cartList.map((item) => (
+            <Card
+              className="d-flex flex-row  align-items-center justify-content-between   mb-3"
+              key={item.id}
+            >
+              <img src={item.thumbnail} alt="" className="w-25  " />
+              <div className="me-auto ">
+                <Card.Body>
+                  <div>
+                    <Card.Title> {item.title}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted text-capitalize ">
+                      {item.category}
+                    </Card.Subtitle>
+                    <Card.Text>${item.price}</Card.Text>
+                  </div>
+                </Card.Body>
+              </div>
+              <button
+                onClick={() => removeFromCartHandler(item)}
+                className="btn btn-outline-danger m-3   "
+              >
+                Remove from cart
+              </button>
             </Card>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </>
   );

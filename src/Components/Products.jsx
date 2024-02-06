@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { Badge } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../Store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../Store/cartSlice";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+  const cartList = useSelector((state) => state.cartList);
 
   const addToCartHandler = (cart) => {
     dispatch(addToCart(cart));
+  };
+  const removeFromCartHandler = (cart) => {
+    dispatch(removeFromCart(cart));
   };
 
   function loadProducts() {
@@ -20,7 +25,6 @@ function Products() {
       .then((data) => {
         setProducts(data.products);
       });
-    console.log(products);
   }
 
   useEffect(() => {
@@ -40,19 +44,30 @@ function Products() {
             />
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
-              <Card.Text>{product.price}</Card.Text>
+              <Badge bg="secondary">${product.price}</Badge>
               <Card.Text>{product.description}</Card.Text>
             </Card.Body>
 
             <Card.Footer className="text-center ">
-              <Button
-                variant="primary"
-                onClick={() => {
-                  addToCartHandler(product);
-                }}
-              >
-                Add to Card
-              </Button>
+              {!cartList.some((item) => item.id == product.id) ? (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    addToCartHandler(product);
+                  }}
+                >
+                  Add to Card
+                </Button>
+              ) : (
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    removeFromCartHandler(product);
+                  }}
+                >
+                  Remove from cart
+                </Button>
+              )}
             </Card.Footer>
           </Card>
         </div>
