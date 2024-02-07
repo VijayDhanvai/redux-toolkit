@@ -12,8 +12,8 @@ function App() {
   return (
     <>
       <TopNav />
-      <Container fluid="md">
-        <div className="row mt-4 ">
+      <Container fluid="md" style={{ marginTop: "90px" }}>
+        <div className="row ">
           <Routes>
             <Route index path="/" element={<Products />} />
             <Route path="/products" element={<Products />} />

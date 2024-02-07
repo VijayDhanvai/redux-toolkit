@@ -34,8 +34,8 @@ function Products() {
   return (
     <>
       {products.map((product) => (
-        <div className="col-sm-3 mb-4  " key={product.id}>
-          <Card>
+        <div className="col-md-6 col-lg-3 mb-4  " key={product.id}>
+          <Card className="shadow-sm ">
             <Card.Img
               variant="top"
               src={product.thumbnail}

@@ -10,9 +10,12 @@ function TopNav() {
   const cartList = useSelector((state) => state.cartList);
   return (
     <>
-      <Navbar expand="lg" className="bg-body-secondary shadow-sm   ">
+      <Navbar
+        expand="lg"
+        className="bg-dark text-light   shadow-sm  fixed-top "
+      >
         <Container fluid>
-          <Navbar.Brand to="/" as={Link}>
+          <Navbar.Brand to="/" as={Link} className=" text-light">
             React Redux-Toolkit
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -22,12 +25,12 @@ function TopNav() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link as={Link} to="/products">
-                Product
+              <Nav.Link as={Link} to="/products" className=" text-light">
+                Products
               </Nav.Link>
-              <Nav.Link as={Link} to="/cart" className="">
+              <Nav.Link as={Link} to="/cart" className=" text-light">
                 Cart -{" "}
-                <Badge bg="dark" pill>
+                <Badge bg="primary" pill>
                   {cartList.length}
                 </Badge>
               </Nav.Link>

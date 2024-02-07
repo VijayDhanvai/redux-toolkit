@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFromCart } from "../Store/cartSlice";
+import CartDetail from "./CartDetails";
 
 function Cart() {
   const cartList = useSelector((state) => state.cartList);
@@ -14,9 +15,9 @@ function Cart() {
   console.log(cartList);
   return (
     <>
-      <h3 className=" text-primary  mb-3  ">Cart Detail</h3>
-
       <div className="col-sm-8">
+        <h3 className=" text-primary  mb-2  ">Cart Detail</h3>
+
         {cartList.length == 0 ? (
           <h4 className="mt-3 text-seconday ">
             Cart is empty, Please add products from{" "}
@@ -27,7 +28,7 @@ function Cart() {
         ) : (
           cartList.map((item) => (
             <Card
-              className="d-flex flex-row  align-items-center justify-content-between   mb-3"
+              className="d-flex flex-row shadow-sm  align-items-center justify-content-between   mb-4"
               key={item.id}
             >
               <img src={item.thumbnail} alt="" className="w-25  " />
@@ -51,6 +52,9 @@ function Cart() {
             </Card>
           ))
         )}
+      </div>
+      <div className="col-sm-4 ">
+        <CartDetail cartList={cartList} />
       </div>
     </>
   );
