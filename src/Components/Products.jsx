@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Badge } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../Store/cartSlice";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function Products() {
+  const container = useRef();
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const cartList = useSelector((state) => state.cartList);
@@ -31,10 +34,23 @@ function Products() {
     loadProducts();
   }, []);
 
+  useGSAP(
+    () => {
+      // Animate prod on mount
+      gsap.fromTo(
+        ".prod",
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 }
+      );
+    }
+
+    // { scope: container }
+  );
+
   return (
     <>
       {products.map((product) => (
-        <div className="col-md-6 col-lg-3 mb-4  " key={product.id}>
+        <div className="col-md-6 col-lg-3 mb-4  prod   " key={product.id}>
           <Card className="shadow-sm ">
             <Card.Img
               variant="top"

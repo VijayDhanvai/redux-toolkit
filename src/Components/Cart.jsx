@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFromCart } from "../Store/cartSlice";
 import CartDetail from "./CartDetails";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function Cart() {
   const cartList = useSelector((state) => state.cartList);
   const dispatch = useDispatch();
+  const container = useRef();
 
   const removeFromCartHandler = (item) => {
     dispatch(removeFromCart(item));
   };
-  console.log(cartList);
+
+  useGSAP(
+    () => {
+      // Animate card on mount
+      gsap.from(".card", { opacity: 0, y: -20, stagger: 0.1, duration: 0.5 });
+    },
+    { scope: container }
+  );
+
   return (
     <>
-      <div className="col-sm-8">
+      <div className="col-sm-8" ref={container}>
         <h3 className=" text-primary  mb-2  ">Cart Detail</h3>
 
         {cartList.length == 0 ? (
@@ -28,7 +39,7 @@ function Cart() {
         ) : (
           cartList.map((item) => (
             <Card
-              className="d-flex flex-row shadow-sm  align-items-center justify-content-between   mb-4"
+              className="d-flex card  flex-row shadow-sm  align-items-center justify-content-between   mb-4"
               key={item.id}
             >
               <img src={item.thumbnail} alt="" className="w-25  " />
